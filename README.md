@@ -1,6 +1,6 @@
 # Img-ProPy
 
-This is a CLI-based image data extraction and image editing application written in Python. <br> <img src=img_propy_ss.png>
+<p>This is a CLI-based image data extraction and image editing application written in Python.</p>
 
 # Samples
 
