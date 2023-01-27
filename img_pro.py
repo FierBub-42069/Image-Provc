@@ -3,39 +3,31 @@ from PIL import Image, ImageFilter
 import pytesseract
 import cv2
 import numpy as np
+import pandas as pd
 
 def rgb(imgName, imgExt):
-	image = Image.open(imgName+"."+imgExt)
-	width, height = image.size
-	data = []
-	for y in range(height):
-    		for x in range(width):
-    			pixel = image.getpixel((x, y))
-    			data.append(pixel)
-
+	im = Image.open(imgName+"."+imgExt)
+	rgb_im = im.convert('RGB')
+	rgb_data = list(rgb_im.getdata())
+	rgb_df = pd.DataFrame(rgb_data, columns=["R", "G", "B"])
 	file_=imgName+"_rgb.csv"
-	with open(file_, "w", newline="") as f:
-		writer = csv.writer(f)
-		writer.writerow(["Red", "Green", "Blue"])
-		writer.writerows(data)
+	rgb_df.to_csv(file_, index=False)
 
-def ocr_hsv(imgName, imgExt):
+def hsv(imgName, imgExt):
 	image = Image.open(imgName+"."+imgExt)
-	gray = image.convert('L')
-	ocr_text = pytesseract.image_to_string(gray)
-	hsv = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2HSV)
-	data = []
-	height, width, _ = hsv.shape
-	for y in range(height):
-    		for x in range(width):
-    			h, s, v = hsv[y, x]
-    			data.append([ocr_text, h, s, v])
-	
-	file_=imgName+"_ocr_hsv.csv"
-	with open(file_, "w", newline="") as f:
-    		writer = csv.writer(f)
-    		writer.writerow(["OCR", "Hue", "Saturation", "Value"])
-    		writer.writerows(data)
+	hsv_im = image.convert('HSV')
+	hsv_data = list(hsv_im.getdata())
+	hsv_df = pd.DataFrame(hsv_data, columns=["H", "S", "V"])
+	file_=imgName+"_hsv.csv"
+	hsv_df.to_csv(file_, index=False)
+
+def gray(imgName, imgExt):
+	im = Image.open(imgName+"."+imgExt)
+	gray_im = im.convert("L")
+	gray_data = list(gray_im.getdata())
+	gray_df = pd.DataFrame(gray_data, columns=["gray"])
+	file_=imgName+"_gray.csv"
+	gray_df.to_csv(file_, index=False)
 
 def filter_(imgName, imgExt):
 	img = Image.open(imgName+"."+imgExt)
@@ -58,16 +50,18 @@ def filter_(imgName, imgExt):
 def main():
 	imgName=input("Enter image name:\t")
 	imgExt=input("Enter image extension:\t")
-	print("\n1.RGB\n2.OCR and CSV\n3.Apply Filter\n4.Exit")
+	print("\n1.RGB\n2.HSV\n3.Grayscale\n4.Apply Filter\n5.Exit")
 	ch=int(input("\tEnter your choice:\t"))
 	match ch:
 		case 1:
 			rgb(imgName, imgExt)
 		case 2:
-			ocr_hsv(imgName, imgExt)
+			hsv(imgName, imgExt)
 		case 3:
-			filter_(imgName, imgExt)
+			gray(imgName, imgExt)
 		case 4:
+			filter_(imgName, imgExt)
+		case 5:
 			exit()
 main()
 	
