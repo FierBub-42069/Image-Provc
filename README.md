@@ -6,16 +6,8 @@ This is a CLI-based image data extraction and image editing application written 
 
 <hr>
 
-<img src=index.jpeg> Original Image
+<p>Original Image  &emsp; &emsp; &emsp; &emsp; &emsp; &ensp; Greyscale (BW) Image  &emsp; &emsp; &ensp;  Blurred Image  <br>   <img src=index.jpeg> &ensp; <img src=index_bw.jpeg> &ensp;  <img src=index_blur.jpeg> <br> </p>
 
-<img src=index_bw.jpeg> Greyscale (black and white) Image
-
-<img src=index_blur.jpeg> Blurred Image
-
-<img src=index_sharpen.jpeg> Sharpened Image
-
-<img src=index_contour.jpeg> Contoured Image
-
-<img src=index_edges.jpeg> Edge-only Image
+<p>Sharpened Image &emsp; &emsp; &emsp; &emsp; &ensp; Contoured Image  &emsp; &emsp; &emsp; &emsp; &ensp; Edge-only Image <br><img src=index_sharpen.jpeg>  &ensp;  <img src=index_contour.jpeg>  &ensp;  <img src=index_edges.jpeg><br> </p>
 
 <hr>
